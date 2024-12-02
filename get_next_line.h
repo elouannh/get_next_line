@@ -16,8 +16,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
-ssize_t	ft_buffer_size(int fd);
+#ifndef BUFFER_SIZE
+    #define BUFFER_SIZE 1024
+#endif
+
+ssize_t	ft_strlen(const char *s);
+int	ft_scan_buffer(const char *str);
 
 #endif

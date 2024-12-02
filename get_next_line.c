@@ -15,13 +15,16 @@
 char	*get_next_line(int fd)
 {
 	ssize_t	readbytes;
-	ssize_t	bufsize;
 	char	*buf;
+	static int		scanned;
 
-	bufsize = ft_buffer_size(fd);
-	buf = malloc(bufsize * sizeof(char));
-	readbytes = read(fd, buf, 10);
-	printf("size: %zd, %zd\n", bufsize, readbytes);
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	readbytes = read(fd, buf, BUFFER_SIZE);
+	scanned = 0;
+	while (ft_scan_buffer(buf))
+	{
+		
+	}
 	return buf;
 }
 
