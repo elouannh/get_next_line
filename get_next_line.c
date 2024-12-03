@@ -16,14 +16,19 @@ char	*get_next_line(int fd)
 {
 	ssize_t	readbytes;
 	char	*buf;
-	static int		scanned;
+	char	*temp;
+	size_t	bufsize;
 
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	bufsize = BUFFER_SIZE;
+	buf = malloc((bufsize + 1) * sizeof(char));
 	readbytes = read(fd, buf, BUFFER_SIZE);
-	scanned = 0;
 	while (ft_scan_buffer(buf))
 	{
-		
+		bufsize += BUFFER_SIZE;
+		buf = ft_increase_buf(buf, bufsize);
+		readbytes = read(fd, buf, BUFFER_SIZE);
+		if (readbytes <= 0)
+			break ;
 	}
 	return buf;
 }

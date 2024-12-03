@@ -36,18 +36,27 @@ int	ft_scan_buffer(const char *str)
 		i++;
 	}
 	if (i != (int)ft_strlen(str))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
-char	*ft_skip_lines(const char *str, int lines)
+char	*ft_increase_buf(char *buf, size_t newsize)
 {
-	while (lines > 0)
+	char	*newbuf;
+	size_t	i;
+
+	newbuf = malloc((newsize + 1) * sizeof(char));
+	if (!newbuf)
 	{
-		if (!*str)
-			return (NULL);
-		if (*str == '\n')
-			lines--;
-		str++;
+		free(buf);
+		return (NULL);
 	}
+	i = 0;
+	while (buf[i])
+	{
+		newbuf[i] = buf[i];
+		i++;
+	}
+	free(buf);
+	return (newbuf);
 }
