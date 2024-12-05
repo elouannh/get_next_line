@@ -23,7 +23,7 @@
 #endif
 
 ssize_t	ft_strlen(const char *s);
-int	ft_scan_buffer(const char *str);
+int	ft_is_endol(const char *str);
 char	*ft_increase_buf(char *buf, size_t newsize);
 
 #endif

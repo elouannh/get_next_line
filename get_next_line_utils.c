@@ -24,19 +24,14 @@ ssize_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_scan_buffer(const char *str)
+int	ft_is_endol(const char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] == '\n')
-			break ;
-		i++;
+		if (*str == '\n')
+			return (1);
+		str++;
 	}
-	if (i != (int)ft_strlen(str))
-		return (1);
 	return (0);
 }
 
