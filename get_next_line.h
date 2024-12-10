@@ -20,12 +20,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# ifndef MAX_FD
-#  define MAX_FD 256
-# endif
-
 char	*get_next_line(int fd);
-size_t	getmax(char const *s, unsigned int start, size_t len);
+size_t	ft_getmax(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);

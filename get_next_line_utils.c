@@ -71,7 +71,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		res[0] = '\0';
 		return (res);
 	}
-	res = (char *)malloc((getmax(s, start, len) + 1) * sizeof(char));
+	res = (char *)malloc((ft_getmax(s, start, len) + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -86,23 +86,23 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
+	char	*res;
 	int		i;
 	int		j;
-	size_t	size;
+	size_t	reslen;
 
 	if (!s1 || !s2)
 		return (NULL);
-	size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	str = (char *)malloc(sizeof(char) * size);
-	if (!str)
+	reslen = ft_strlen(s1) + ft_strlen(s2) + 1;
+	res = (char *)malloc(sizeof(char) * reslen);
+	if (!res)
 		return (NULL);
 	i = -1;
 	while (s1[++i])
-		str[i] = s1[i];
+		res[i] = s1[i];
 	j = -1;
 	while (s2[++j])
-		str[i + j] = s2[j];
-	str[i + j] = '\0';
-	return (str);
+		res[i + j] = s2[j];
+	res[i + j] = '\0';
+	return (res);
 }

@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-size_t	getmax(char const *s, unsigned int start, size_t len)
+size_t	ft_getmax(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 
@@ -22,21 +22,21 @@ size_t	getmax(char const *s, unsigned int start, size_t len)
 	return (i);
 }
 
-void	free_null(char **ptr)
+void	ft_clear(char **ptr)
 {
 	if (*ptr != NULL)
 	{
 		free(*ptr);
-		ptr = NULL;
+		*ptr = NULL;
 	}
 }
 
-char	*join_line(int nl_position, char **buffer)
+char	*ft_join_line(int nl_position, char **buffer)
 {
 	char	*res;
-	char	*tmp;
+	char	*temp;
 
-	tmp = NULL;
+	temp = NULL;
 	if (nl_position <= 0)
 	{
 		if (**buffer == '\0')
@@ -49,14 +49,14 @@ char	*join_line(int nl_position, char **buffer)
 		*buffer = NULL;
 		return (res);
 	}
-	tmp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
+	temp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
 	res = *buffer;
 	res[nl_position] = 0;
-	*buffer = tmp;
+	*buffer = temp;
 	return (res);
 }
 
-char	*read_line(int fd, char **buffer, char *read_return)
+char	*ft_read_line(int fd, char **buffer, char *read_return)
 {
 	ssize_t	bytes_read;
 	char	*tmp;
@@ -69,50 +69,53 @@ char	*read_line(int fd, char **buffer, char *read_return)
 	{
 		bytes_read = read(fd, read_return, BUFFER_SIZE);
 		if (bytes_read <= 0)
-			return (join_line(bytes_read, buffer));
+			return (ft_join_line(bytes_read, buffer));
 		read_return[bytes_read] = 0;
 		tmp = ft_strjoin(*buffer, read_return);
-		free_null(buffer);
+		ft_clear(buffer);
 		*buffer = tmp;
 		nl = ft_strchr(*buffer, '\n');
 	}
-	return (join_line(nl - *buffer + 1, buffer));
+	return (ft_join_line(nl - *buffer + 1, buffer));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[MAX_FD + 1];
+	static char	*buffer[256];
 	char		*read_return;
 	char		*res;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 256)
 		return (NULL);
 	read_return = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (read_return == NULL)
 		return (NULL);
 	if (!buffer[fd])
 		buffer[fd] = ft_strdup("");
-	res = read_line(fd, &buffer[fd], read_return);
-	free_null(&read_return);
+	res = ft_read_line(fd, &buffer[fd], read_return);
+	ft_clear(&read_return);
 	if (!res)
 		return (NULL);
 	return (res);
 }
 
-// #include <fcntl.h>
-// #include <stdio.h>
+#include <fcntl.h>
+#include <stdio.h>
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*res;
-// 	char	*res2;
+int	main(void)
+{
+	int		fd;
+	int		i;
+	char	*res;
 
-// 	fd = open("test.txt", O_RDONLY);
-// 	res = get_next_line(fd);
-// 	res2 = get_next_line(fd);
-// 	printf("%s\n", res);
-// 	printf("%s\n", res2);
-// 	close(fd);
-// 	return (0);
-// }
+	fd = open("test.txt", O_RDONLY);
+	i = 0;
+	while (i < 5)
+	{
+		res = get_next_line(fd);
+		printf("%s", res);
+		i++;
+	}
+	close(fd);
+	return (0);
+}
