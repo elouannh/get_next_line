@@ -1,0 +1,18 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     a.out
+relocations:
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _free_null, symObjAddr: 0x0, symBinAddr: 0x1000036D4, symSize: 0x48 }
+  - { offset: 0x33, size: 0x8, addend: 0x0, symName: _get_next_line, symObjAddr: 0x23C, symBinAddr: 0x100003910, symSize: 0xF8 }
+  - { offset: 0x58, size: 0x8, addend: 0x0, symName: _get_next_line.buffer, symObjAddr: 0xE10, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offset: 0xAC, size: 0x8, addend: 0x0, symName: _free_null, symObjAddr: 0x0, symBinAddr: 0x1000036D4, symSize: 0x48 }
+  - { offset: 0xD0, size: 0x8, addend: 0x0, symName: _join_line, symObjAddr: 0x48, symBinAddr: 0x10000371C, symSize: 0xE0 }
+  - { offset: 0x122, size: 0x8, addend: 0x0, symName: _read_line, symObjAddr: 0x128, symBinAddr: 0x1000037FC, symSize: 0x114 }
+  - { offset: 0x190, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x334, symBinAddr: 0x100003A08, symSize: 0x94 }
+  - { offset: 0x223, size: 0x8, addend: 0x0, symName: _ft_strchr, symObjAddr: 0x0, symBinAddr: 0x100003A9C, symSize: 0x7C }
+  - { offset: 0x243, size: 0x8, addend: 0x0, symName: _ft_strchr, symObjAddr: 0x0, symBinAddr: 0x100003A9C, symSize: 0x7C }
+  - { offset: 0x287, size: 0x8, addend: 0x0, symName: _ft_strlen, symObjAddr: 0x7C, symBinAddr: 0x100003B18, symSize: 0x4C }
+  - { offset: 0x2BD, size: 0x8, addend: 0x0, symName: _ft_strdup, symObjAddr: 0xC8, symBinAddr: 0x100003B64, symSize: 0xBC }
+  - { offset: 0x30F, size: 0x8, addend: 0x0, symName: _ft_substr, symObjAddr: 0x184, symBinAddr: 0x100003C20, symSize: 0x190 }
+  - { offset: 0x37D, size: 0x8, addend: 0x0, symName: _ft_strjoin, symObjAddr: 0x314, symBinAddr: 0x100003DB0, symSize: 0x188 }
+...
