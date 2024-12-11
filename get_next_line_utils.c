@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ehosta <ehosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:27:40 by prafael-          #+#    #+#             */
-/*   Updated: 2021/09/28 11:27:40 by prafael-         ###   ########.fr       */
+/*   Created: 2024/12/11 18:12:16 by ehosta            #+#    #+#             */
+/*   Updated: 2024/12/11 18:12:17 by ehosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 char	*ft_strchr(const char *str, int n)
 {
-	char	*tmp;
+	char	*temp;
 
-	tmp = (char *) str;
-	while (*tmp != (char)n)
+	temp = (char *) str;
+	while (*temp != (char)n)
 	{
-		if (*tmp == 0)
+		if (*temp == 0)
 			return (NULL);
-		tmp++;
+		temp++;
 	}
-	return ((char *)tmp);
+	return ((char *)temp);
 }
 
 size_t	ft_strlen(const char *str)

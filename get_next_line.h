@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehosta <ehosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:27:47 by prafael-          #+#    #+#             */
-/*   Updated: 2024/12/11 17:59:26 by ehosta           ###   ########.fr       */
+/*   Created: 2024/12/11 18:12:36 by ehosta            #+#    #+#             */
+/*   Updated: 2024/12/11 18:12:38 by ehosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 # ifndef FD_LIMIT
-#  define FD_LIMIT 256
+#  define FD_LIMIT 1024
 # endif
 
 char	*get_next_line(int fd);

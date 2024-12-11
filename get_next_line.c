@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehosta <ehosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:27:43 by prafael-          #+#    #+#             */
-/*   Updated: 2024/12/11 18:00:14 by ehosta           ###   ########.fr       */
+/*   Created: 2024/12/11 18:12:25 by ehosta            #+#    #+#             */
+/*   Updated: 2024/12/11 18:15:44 by ehosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	ft_avoid(char **ptr)
 	}
 }
 
-char	*ft_join_line(int nl_position, char **buffer)
+char	*ft_join_line(int nl_index, char **buffer)
 {
 	char	*res;
-	char	*tmp;
+	char	*temp;
 
-	tmp = NULL;
-	if (nl_position <= 0)
+	temp = NULL;
+	if (nl_index <= 0)
 	{
 		if (**buffer == '\0')
 		{
@@ -39,50 +39,50 @@ char	*ft_join_line(int nl_position, char **buffer)
 		*buffer = NULL;
 		return (res);
 	}
-	tmp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
+	temp = ft_substr(*buffer, nl_index, BUFFER_SIZE);
 	res = *buffer;
-	res[nl_position] = 0;
-	*buffer = tmp;
+	res[nl_index] = 0;
+	*buffer = temp;
 	return (res);
 }
 
-char	*ft_read_line(int fd, char **buffer, char *read_return)
+char	*ft_read_line(int fd, char **buffer, char *read_content)
 {
 	ssize_t	bytes_read;
-	char	*tmp;
-	char	*nl;
+	char	*temp;
+	char	*nl_ptr;
 
-	nl = ft_strchr(*buffer, '\n');
-	tmp = NULL;
+	nl_ptr = ft_strchr(*buffer, '\n');
+	temp = NULL;
 	bytes_read = 0;
-	while (nl == NULL)
+	while (nl_ptr == NULL)
 	{
-		bytes_read = read(fd, read_return, BUFFER_SIZE);
+		bytes_read = read(fd, read_content, BUFFER_SIZE);
 		if (bytes_read <= 0)
 			return (ft_join_line(bytes_read, buffer));
-		read_return[bytes_read] = 0;
-		tmp = ft_strjoin(*buffer, read_return);
+		read_content[bytes_read] = 0;
+		temp = ft_strjoin(*buffer, read_content);
 		ft_avoid(buffer);
-		*buffer = tmp;
-		nl = ft_strchr(*buffer, '\n');
+		*buffer = temp;
+		nl_ptr = ft_strchr(*buffer, '\n');
 	}
-	return (ft_join_line(nl - *buffer + 1, buffer));
+	return (ft_join_line(nl_ptr - *buffer + 1, buffer));
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buffer[FD_LIMIT + 1];
-	char		*read_return;
+	char		*read_content;
 	char		*res;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FD_LIMIT)
 		return (NULL);
-	read_return = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (read_return == NULL)
+	read_content = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (read_content == NULL)
 		return (NULL);
 	if (!buffer[fd])
 		buffer[fd] = ft_strdup("");
-	res = ft_read_line(fd, &buffer[fd], read_return);
-	ft_avoid(&read_return);
+	res = ft_read_line(fd, &buffer[fd], read_content);
+	ft_avoid(&read_content);
 	return (res);
 }
