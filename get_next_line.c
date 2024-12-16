@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:12:25 by ehosta            #+#    #+#             */
-/*   Updated: 2024/12/16 10:40:32 by ehosta           ###   ########.fr       */
+/*   Updated: 2024/12/16 15:14:25 by ehosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_avoid(char **ptr)
+static void	avoid(char **ptr)
 {
 	if (*ptr != NULL)
 	{
@@ -21,7 +21,7 @@ void	ft_avoid(char **ptr)
 	}
 }
 
-char	*ft_join_line(int nl_index, char **buffer)
+static char	*join_line(int nl_index, char **buffer)
 {
 	char	*res;
 	char	*temp;
@@ -46,7 +46,7 @@ char	*ft_join_line(int nl_index, char **buffer)
 	return (res);
 }
 
-char	*ft_read_line(int fd, char **buffer, char *read_content)
+static char	*read_line(int fd, char **buffer, char *read_content)
 {
 	ssize_t	bytes_read;
 	char	*temp;
@@ -58,15 +58,21 @@ char	*ft_read_line(int fd, char **buffer, char *read_content)
 	while (nl_ptr == NULL)
 	{
 		bytes_read = read(fd, read_content, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			return (ft_join_line(bytes_read, buffer));
+		if (bytes_read == 0)
+			return (join_line(bytes_read, buffer));
+		if (bytes_read <= -1)
+		{
+			avoid(&read_content);
+			avoid(buffer);
+			return (NULL);
+		}
 		read_content[bytes_read] = 0;
 		temp = ft_strjoin(*buffer, read_content);
-		ft_avoid(buffer);
+		avoid(buffer);
 		*buffer = temp;
 		nl_ptr = ft_strchr(*buffer, '\n');
 	}
-	return (ft_join_line(nl_ptr - *buffer + 1, buffer));
+	return (join_line(nl_ptr - *buffer + 1, buffer));
 }
 
 char	*get_next_line(int fd)
@@ -82,7 +88,9 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!buffer[fd])
 		buffer[fd] = ft_strdup("");
-	res = ft_read_line(fd, &buffer[fd], read_content);
-	ft_avoid(&read_content);
+	res = read_line(fd, &buffer[fd], read_content);
+	if (!res)
+		return (NULL);
+	avoid(&read_content);
 	return (res);
 }

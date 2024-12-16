@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:11:27 by ehosta            #+#    #+#             */
-/*   Updated: 2024/12/14 09:24:42 by ehosta           ###   ########.fr       */
+/*   Updated: 2024/12/16 14:08:48 by ehosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	ft_avoid(char **ptr)
+void	avoid(char **ptr)
 {
 	if (*ptr != NULL)
 	{
@@ -62,7 +62,7 @@ char	*ft_read_line(int fd, char **buffer, char *read_content)
 			return (ft_join_line(bytes_read, buffer));
 		read_content[bytes_read] = 0;
 		temp = ft_strjoin(*buffer, read_content);
-		ft_avoid(buffer);
+		avoid(buffer);
 		*buffer = temp;
 		nl_ptr = ft_strchr(*buffer, '\n');
 	}
@@ -83,6 +83,6 @@ char	*get_next_line(int fd)
 	if (!buffer[fd])
 		buffer[fd] = ft_strdup("");
 	res = ft_read_line(fd, &buffer[fd], read_content);
-	ft_avoid(&read_content);
+	avoid(&read_content);
 	return (res);
 }
