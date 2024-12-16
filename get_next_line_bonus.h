@@ -6,7 +6,7 @@
 /*   By: ehosta <ehosta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:11:45 by ehosta            #+#    #+#             */
-/*   Updated: 2024/12/14 09:24:44 by ehosta           ###   ########.fr       */
+/*   Updated: 2024/12/16 10:53:03 by ehosta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 # ifndef FD_LIMIT
-#  define FD_LIMIT 256
+#  define FD_LIMIT 1024
 # endif
 
 char	*get_next_line(int fd);
